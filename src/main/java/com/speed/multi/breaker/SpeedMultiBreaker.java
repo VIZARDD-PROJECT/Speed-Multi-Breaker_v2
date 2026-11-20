@@ -58,7 +58,7 @@ public class SpeedMultiBreaker implements ModInitializer {
                         PlayerMiningData.get(player.getUUID()).speedMultiplier = mult;
                         syncSpeedToClient(player);
 
-                        context.getSource().sendSuccess(() -> Component.literal("§aСкорость добычи установлена на: §e" + mult + "x"), false);
+                        player.sendSystemMessage(Component.literal("§aСкорость добычи установлена на: §e" + mult + "x"));
                         return 1;
                     })
                 )
@@ -72,7 +72,7 @@ public class SpeedMultiBreaker implements ModInitializer {
                         String pattern = StringArgumentType.getString(context, "pattern");
 
                         if (!pattern.matches("\\d{4}")) {
-                            context.getSource().sendFailure(Component.literal("§cОшибка! Введите ровно 4 цифры (вверх, вправо, вниз, влево). Пример: /minsizex 0010"));
+                            player.sendSystemMessage(Component.literal("§cОшибка! Введите ровно 4 цифры (вверх, вправо, вниз, влево). Пример: /minsizex 0010"));
                             return 0;
                         }
 
@@ -82,9 +82,9 @@ public class SpeedMultiBreaker implements ModInitializer {
                         settings.down = Character.getNumericValue(pattern.charAt(2));
                         settings.left = Character.getNumericValue(pattern.charAt(3));
 
-                        context.getSource().sendSuccess(() -> Component.literal(
+                        player.sendSystemMessage(Component.literal(
                             String.format("§aОбласть добычи: §e↑%d →%d ↓%d ←%d", settings.up, settings.right, settings.down, settings.left)
-                        ), false);
+                        ));
                         return 1;
                     })
                 )
