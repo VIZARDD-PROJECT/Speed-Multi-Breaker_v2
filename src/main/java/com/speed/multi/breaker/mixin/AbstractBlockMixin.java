@@ -1,30 +1,30 @@
 package com.speed.multi.breaker.mixin;
 
 import com.speed.multi.breaker.PlayerMiningData;
-import com.speed.multi.breaker.SpeedMultiBreakerClient;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import com.speed.multi.breaker.SpeedMultiBreaker;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractBlock.class)
+@Mixin(BlockBehaviour.class)
 public class AbstractBlockMixin {
 
-    @Inject(method = "calcBlockBreakingDelta", at = @At("RETURN"), cancellable = true)
-    private void onCalcBlockBreakingDelta(BlockState state, PlayerEntity player, BlockView world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
+    @Inject(method = "getDestroyProgress", at = @At("RETURN"), cancellable = true)
+    private void onGetDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos, CallbackInfoReturnable<Float> cir) {
         float original = cir.getReturnValue();
-        if (original <= 0.0f) return; // Не трогаем неразрушимые блоки вроде бедрока
+        if (original <= 0.0f) return;
 
         float multiplier;
-        if (player.getWorld().isClient) {
-            multiplier = SpeedMultiBreakerClient.clientSpeedMultiplier;
+        if (player.level().isClientSide()) {
+            multiplier = SpeedMultiBreaker.clientSpeedMultiplier;
         } else {
-            multiplier = PlayerMiningData.get(player.getUuid()).speedMultiplier;
+            multiplier = PlayerMiningData.get(player.getUUID()).speedMultiplier;
         }
 
         cir.setReturnValue(original * multiplier);
