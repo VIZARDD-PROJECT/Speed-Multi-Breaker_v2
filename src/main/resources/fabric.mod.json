@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "speed-multi-breaker",
+	"version": "1.001",
+	"name": "Speed Multi Breaker",
+	"description": "Fast mining and NxN area breaking for vanilla pickaxes",
+	"authors": [
+		"VIZARDD"
+	],
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.example.SpeedMultiBreaker"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
