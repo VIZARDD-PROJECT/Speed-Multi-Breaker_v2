@@ -11,9 +11,15 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.SpeedMultiBreaker"
+			"com.speed.multi.breaker.SpeedMultiBreaker"
+		],
+		"client": [
+			"com.speed.multi.breaker.SpeedMultiBreakerClient"
 		]
 	},
+	"mixins": [
+		"speed-multi-breaker.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
 		"minecraft": "~1.20.1",
