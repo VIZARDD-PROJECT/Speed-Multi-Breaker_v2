@@ -30,10 +30,7 @@ public class SpeedMultiBreaker implements ModInitializer {
     public static final String MOD_ID = "speed-multi-breaker";
     public static final ResourceLocation SYNC_SPEED_PACKET = new ResourceLocation(MOD_ID, "sync_speed");
 
-    // Скорость на стороне клиента (обновляется пакетом от сервера)
     public static float clientSpeedMultiplier = 1.0f;
-
-    // Защита от бесконечной рекурсии
     private static final Set<UUID> ACTIVE_MINERS = new HashSet<>();
 
     @Override
@@ -58,7 +55,7 @@ public class SpeedMultiBreaker implements ModInitializer {
                         PlayerMiningData.get(player.getUUID()).speedMultiplier = mult;
                         syncSpeedToClient(player);
 
-                        player.sendSystemMessage(Component.literal("§aСкорость добычи установлена на: §e" + mult + "x"));
+                        player.displayClientMessage(Component.literal("§aСкорость добычи установлена на: §e" + mult + "x"), false);
                         return 1;
                     })
                 )
@@ -72,7 +69,7 @@ public class SpeedMultiBreaker implements ModInitializer {
                         String pattern = StringArgumentType.getString(context, "pattern");
 
                         if (!pattern.matches("\\d{4}")) {
-                            player.sendSystemMessage(Component.literal("§cОшибка! Введите ровно 4 цифры (вверх, вправо, вниз, влево). Пример: /minsizex 0010"));
+                            player.displayClientMessage(Component.literal("§cОшибка! Введите ровно 4 цифры (вверх, вправо, вниз, влево). Пример: /minsizex 0010"), false);
                             return 0;
                         }
 
@@ -82,9 +79,9 @@ public class SpeedMultiBreaker implements ModInitializer {
                         settings.down = Character.getNumericValue(pattern.charAt(2));
                         settings.left = Character.getNumericValue(pattern.charAt(3));
 
-                        player.sendSystemMessage(Component.literal(
+                        player.displayClientMessage(Component.literal(
                             String.format("§aОбласть добычи: §e↑%d →%d ↓%d ←%d", settings.up, settings.right, settings.down, settings.left)
-                        ));
+                        ), false);
                         return 1;
                     })
                 )
@@ -103,7 +100,6 @@ public class SpeedMultiBreaker implements ModInitializer {
             PlayerMiningData.PlayerSettings settings = PlayerMiningData.get(uuid);
             if (!settings.hasArea()) return;
 
-            // Только с киркой
             ItemStack tool = serverPlayer.getMainHandItem();
             if (!(tool.getItem() instanceof PickaxeItem)) return;
 
@@ -135,17 +131,12 @@ public class SpeedMultiBreaker implements ModInitializer {
     private void tryBreakExtraBlock(ServerLevel level, ServerPlayer player, BlockPos targetPos, BlockState originalState, ItemStack tool) {
         BlockState targetState = level.getBlockState(targetPos);
 
-        // Пропускаем воздух и неразрушимые блоки (бедрок и т.д.)
         if (targetState.isAir() || targetState.getDestroySpeed(level, targetPos) < 0) return;
-
-        // Только подходящие под кирку или того же типа
         if (!tool.isCorrectToolForDrops(targetState) && targetState.getBlock() != originalState.getBlock()) return;
 
-        // Не трогаем блоки с инвентарём (сундуки, печки, бочки)
         BlockEntity be = level.getBlockEntity(targetPos);
         if (be instanceof Container) return;
 
-        // Ломаем блок (честный расход 1 единицы прочности и выпадение лута)
         player.gameMode.destroyBlock(targetPos);
     }
 
