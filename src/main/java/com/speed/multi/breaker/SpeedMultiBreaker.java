@@ -49,7 +49,7 @@ public class SpeedMultiBreaker implements ModInitializer {
             dispatcher.register(Commands.literal("minspeedx")
                 .then(Commands.argument("multiplier", FloatArgumentType.floatArg(0.1f, 100.0f))
                     .executes(context -> {
-                        ServerPlayer player = context.getSource().getPlayerOrThrow();
+                        ServerPlayer player = context.getSource().getPlayerOrException();
                         float mult = FloatArgumentType.getFloat(context, "multiplier");
 
                         PlayerMiningData.get(player.getUUID()).speedMultiplier = mult;
@@ -65,7 +65,7 @@ public class SpeedMultiBreaker implements ModInitializer {
             dispatcher.register(Commands.literal("minsizex")
                 .then(Commands.argument("pattern", StringArgumentType.word())
                     .executes(context -> {
-                        ServerPlayer player = context.getSource().getPlayerOrThrow();
+                        ServerPlayer player = context.getSource().getPlayerOrException();
                         String pattern = StringArgumentType.getString(context, "pattern");
 
                         if (!pattern.matches("\\d{4}")) {
