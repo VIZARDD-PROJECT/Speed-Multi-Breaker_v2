@@ -1,13 +1,17 @@
 {
 	"schemaVersion": 1,
-	"id": "speed-multi-breaker",
-	"version": "1.001",
+	"id": "Speed-Multi-Breaker",
+	"version": "2.02",
 	"name": "Speed Multi Breaker",
-	"description": "Fast mining and NxN area breaking for vanilla pickaxes",
+	"description": "Progressive NxN area mining, custom excavation patterns, 3D wireframe preview, and quick tool presets (up to 5x5 Destroyer mode) for all digging tools.",
 	"authors": [
 		"VIZARDD"
 	],
+	"contact": {
+		"sources": "https://github.com/VIZARDD-PROJECT/Speed-Multi-Breaker_v2"
+	},
 	"license": "CC0-1.0",
+	"icon": "assets/speed-multi-breaker/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
