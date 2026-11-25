@@ -1,8 +1,8 @@
 package com.speed.multi.breaker.mixin;
 
 import com.speed.multi.breaker.PlayerMiningData;
-import com.speed.multi.breaker.SpeedMultiBreaker;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -22,9 +22,11 @@ public class AbstractBlockMixin {
 
         float multiplier;
         if (player.level().isClientSide()) {
-            multiplier = SpeedMultiBreaker.clientSpeedMultiplier;
+            multiplier = PlayerMiningData.CLIENT_SETTINGS.speedMultiplier;
+        } else if (player instanceof ServerPlayer serverPlayer) {
+            multiplier = PlayerMiningData.get(serverPlayer.server, serverPlayer.getUUID()).speedMultiplier;
         } else {
-            multiplier = PlayerMiningData.get(player.getUUID()).speedMultiplier;
+            multiplier = 1.0f;
         }
 
         cir.setReturnValue(original * multiplier);
