@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "Speed-Multi-Breaker",
+	"id": "speed-multi-breaker",
 	"version": "2.02",
 	"name": "Speed Multi Breaker",
 	"description": "Progressive NxN area mining, custom excavation patterns, 3D wireframe preview, and quick tool presets (up to 5x5 Destroyer mode) for all digging tools.",
