@@ -4,10 +4,11 @@ pluginManagement {
 			name = 'Fabric'
 			url = 'https://maven.fabricmc.net/'
 		}
+		maven {
+			name = 'Google Maven Central Mirror'
+			url = 'https://googleapis.com'
+		}
 		mavenCentral()
 		gradlePluginPortal()
 	}
 }
-
-// Should match your modid
-rootProject.name = 'speed-multi-breaker'
