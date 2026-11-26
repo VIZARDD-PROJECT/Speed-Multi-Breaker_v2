@@ -20,6 +20,10 @@ repositories {
 loom {
 	splitEnvironmentSourceSets()
 
+	mixin {
+		defaultRefmapName = "speed-multi-breaker-refmap.json"
+	}
+
 	mods {
 		"speed-multi-breaker" {
 			sourceSet sourceSets.main
