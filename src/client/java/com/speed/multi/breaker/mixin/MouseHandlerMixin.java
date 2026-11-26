@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MouseHandler.class)
 public class MouseHandlerMixin {
 
-    @Inject(method = "onScroll(JDD)V", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "method_1598(JDD)V", at = @At("HEAD"), cancellable = true, remap = false)
     private void onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         if (vertical != 0.0 && SpeedMultiBreakerClient.handleScroll(vertical)) {
             ci.cancel();
