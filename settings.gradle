@@ -2,7 +2,7 @@ pluginManagement {
 	repositories {
 		maven {
 			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
+			url = 'https://fabricmc.net'
 		}
 		maven {
 			name = 'Google Maven Central Mirror'
@@ -12,3 +12,5 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+rootProject.name = 'speed-multi-breaker'
