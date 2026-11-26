@@ -5,6 +5,9 @@
   "mixins": [
     "AbstractBlockMixin"
   ],
+  "client": [
+    "MouseHandlerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
