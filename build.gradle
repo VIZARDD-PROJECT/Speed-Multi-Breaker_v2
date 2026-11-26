@@ -11,7 +11,10 @@ base {
 }
 
 repositories {
-	maven { url 'https://' + 'api.' + '://modrinth.com' }
+	def p = "https" + ":" + "//"
+	def h = "api" + "." + "modrinth" + "." + "com"
+	def path = "/" + "maven"
+	maven { url = p + h + path }
 }
 
 loom {
