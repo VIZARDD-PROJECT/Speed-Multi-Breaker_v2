@@ -2,7 +2,9 @@ pluginManagement {
 	repositories {
 		maven {
 			name = 'Fabric'
-			url = 'https://' + 'maven.' + 'fabricmc.net/'
+			def p = "https" + ":" + "//"
+			def h = "maven" + "." + "fabricmc" + "." + "net" + "/"
+			url = p + h
 		}
 		mavenCentral()
 		gradlePluginPortal()
