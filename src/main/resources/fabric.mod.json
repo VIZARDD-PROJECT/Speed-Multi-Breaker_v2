@@ -1,15 +1,12 @@
 {
 	"schemaVersion": 1,
 	"id": "speed-multi-breaker",
-	"version": "2.02",
+	"version": "${version}",
 	"name": "Speed Multi Breaker",
-	"description": "Progressive NxN area mining, custom excavation patterns, 3D wireframe preview, and quick tool presets (up to 5x5 Destroyer mode) for all digging tools.",
+	"description": "Dig fast and wide with on-the-fly speed and NxN area tuning, color-coded 3D wireframe preview, precision Shift mode, and honest durability cost (ADHD-friendly!).",
 	"authors": [
 		"VIZARDD"
 	],
-	"contact": {
-		"sources": "https://github.com/VIZARDD-PROJECT/Speed-Multi-Breaker_v2"
-	},
 	"license": "CC0-1.0",
 	"icon": "assets/speed-multi-breaker/icon.png",
 	"environment": "*",
@@ -19,6 +16,9 @@
 		],
 		"client": [
 			"com.speed.multi.breaker.SpeedMultiBreakerClient"
+		],
+		"modmenu": [
+			"com.speed.multi.breaker.ModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -29,5 +29,9 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*",
+		"cloth-config": "*"
 	}
 }
